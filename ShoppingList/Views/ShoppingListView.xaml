@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentPage
+    x:Name="ShoppingListPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ShoppingList.Views.ShoppingListView">
+    <StackLayout x:Name="Main">
+        <CollectionView ItemsSource="{Binding Categories}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Expander IsExpanded="{Binding IsDetailVisible, Mode=TwoWay}"
+                              Command="{Binding BindingContext.ExpandCommand,  Source={x:Reference Main}}"
+                              CommandParameter="{Binding .}">
+                        <Expander.Header>
+                            <StackLayout
+                                Spacing="0"
+                                BackgroundColor="SlateGray">
+                                <Label Text="{Binding Name}"
+                                       TextColor="White"
+                                       FontAttributes="Bold"
+                                       FontSize="20"
+                                       Padding="10,0" />
+                                <Label Text="Name"
+                                       BackgroundColor="White"
+                                       Padding="15, 0"
+                                       IsVisible="{Binding IsDetailVisible}" />
+                            </StackLayout>
+                        </Expander.Header>
+                        <StackLayout BindableLayout.ItemsSource="{Binding Items}"
+                                     Padding="15, 5">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding Name}"
+                                           FontSize="18" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </Expander>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Entry Text="{Binding Find}" Placeholder="Find" />
+        <Button Text="Goto"
+                Command="{Binding GoToCommand}" />
+    </StackLayout>
+
+
+</ContentPage>
